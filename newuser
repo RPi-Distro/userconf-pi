@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# create the user
+adduser --gecos "" --disabled-login --add_extra_groups $1
+echo "$1:$2" | chpasswd
+
+# add to the same groups as pi
+adduser $1 adm
+adduser $1 sudo
+adduser $1 games
+adduser $1 input
+adduser $1 netdev
+adduser $1 spi
+adduser $1 i2c
+adduser $1 gpio
+adduser $1 lpadmin
+
+# add to no-password
+echo "$1 ALL=(ALL) NOPASSWD: ALL" | tee -a "/etc/sudoers.d/010_$1-nopasswd"
+
+# directories
+mkdir -p "/home/$1/.local/share/applications"
+mkdir -p "/home/$1/.local/share/desktop-directories"
+mkdir -p "/home/$1/Bookshelf"
+chown -R "$1:$1" "/home/$1/.local"
+chown -R "$1:$1" "/home/$1/Bookshelf"
+if [ -d "/home/$1/.config" ] ; then
+	chmod 700 "/home/$1/.config"
+fi
+
+# set up autologin
+if [ "$3" = "autologin" ] ; then
+	cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << EOF
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin $1 --noclear %I \$TERM
+EOF
+	sed /etc/lightdm/lightdm.conf -i -e "s/^\(#\|\)autologin-user=.*/autologin-user=$1/"
+fi

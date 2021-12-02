@@ -1,0 +1,15 @@
+Source: newuser-pi
+Section: utils
+Priority: optional
+Maintainer: Simon Long <simon@raspberrypi.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 4.3.0
+Vcs-Git: git://git@github.com:raspberrypi-ui/newuser-pi.git
+Vcs-Browser: https://github.com/raspberrypi-ui/newuser-pi
+
+Package: newuser-pi
+Architecture: all
+Depends: ${misc:Depends}
+Recommends:
+Description: Raspberry Pi new user script
+ A simple script to set up a new user account on Raspberry Pi

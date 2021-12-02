@@ -1,0 +1,6 @@
+newuser-pi (0.1) bullseye; urgency=medium
+
+  * First version
+
+ -- Simon Long <simon@raspberrypi.com>  Thu, 02 Dec 2021 15:37:11 +0000
+
