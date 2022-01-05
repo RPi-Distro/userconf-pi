@@ -5,7 +5,7 @@ usermod --login $1 --home /home/$1 --move-home pi
 groupmod --new-name $1 pi
 
 # set the password
-echo "$1:$2" | chpasswd
+echo "$1:$2" | chpasswd -e
 
 # add to no-password
 mv /etc/sudoers.d/010_pi-nopasswd "/etc/sudoers.d/010_$1-nopasswd"
