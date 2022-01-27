@@ -12,11 +12,12 @@ mv /etc/sudoers.d/010_pi-nopasswd "/etc/sudoers.d/010_$1-nopasswd"
 sed "/etc/sudoers.d/010_$1-nopasswd" -i -e "s/pi/$1/"
 
 # set up autologin
-if [ "$3" = "autologin" ] ; then
-	cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << EOF
+cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << EOF
 [Service]
 ExecStart=
 ExecStart=-/sbin/agetty --autologin $1 --noclear %I \$TERM
 EOF
-	sed /etc/lightdm/lightdm.conf -i -e "s/^\(#\|\)autologin-user=.*/autologin-user=$1/"
-fi
+sed /etc/lightdm/lightdm.conf -i -e "s/^\(#\|\)autologin-user=.*/autologin-user=$1/"
+
+# delete sudo script
+rm /etc/sudoers.d/010_lightdm
