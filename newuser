@@ -18,6 +18,3 @@ ExecStart=
 ExecStart=-/sbin/agetty --autologin $1 --noclear %I \$TERM
 EOF
 sed /etc/lightdm/lightdm.conf -i -e "s/^\(#\|\)autologin-user=.*/autologin-user=$1/"
-
-# delete sudo script
-rm /etc/sudoers.d/010_lightdm
