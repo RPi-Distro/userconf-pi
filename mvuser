@@ -33,5 +33,5 @@ cat > /etc/xdg/autostart/deluser.desktop << EOF
 Type=Application
 Name=Delete Wizard User
 NoDisplay=true
-Exec=sh -c 'sudo userdel -r rpi-first-boot-wizard; sudo rm /etc/xdg/autostart/deluser.desktop'
+Exec=sh -c 'sudo userdel -r rpi-first-boot-wizard; sudo rm /etc/sudoers.d/010_wiz-nopasswd; sudo rm /etc/xdg/autostart/deluser.desktop'
 EOF
