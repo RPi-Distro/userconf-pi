@@ -1,6 +1,5 @@
-newuser-pi (0.1) bullseye; urgency=medium
+userconf-pi (0.1) bullseye; urgency=medium
 
   * First version
 
- -- Simon Long <simon@raspberrypi.com>  Thu, 02 Dec 2021 15:37:11 +0000
-
+ -- Serge Schneider <serge@raspberrypi.com>  Wed, 16 Mar 2022 13:48:57 +0000

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ "$(id -u)" != "0" ]; then
+    echo "Please run with 'sudo': sudo cancel-rename USER" >&2
+    exit 1
+fi
+
+if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
+    if [ "$1" = "root" ] || ! getent passwd "$1" >/dev/null; then
+        echo "Please specify default user: sudo cancel-rename USER" >&2
+        exit 1
+    fi
+    # set up autologin
+    SUDO_USER="$1" raspi-config nonint do_boot_behaviour B4
+
+    # remove the autostart for the wizard
+    rm -f /etc/xdg/autostart/piwiz.desktop
+
+    # set up a self-deleting autostart to delete the wizard user
+    cat <<- EOF > /etc/xdg/autostart/deluser.desktop
+	[Desktop Entry]
+	Type=Application
+	Name=Delete Wizard User
+	NoDisplay=true
+	Exec=sh -c 'sudo userdel -r rpi-first-boot-wizard; sudo rm /etc/sudoers.d/010_wiz-nopasswd; sudo rm /etc/xdg/autostart/deluser.desktop'
+	EOF
+else
+    SUDO_USER="$1" raspi-config nonint do_boot_behaviour B2
+fi
+
+systemctl --quiet disable userconfig
+systemctl --quiet enable getty@tty1 --now --no-block

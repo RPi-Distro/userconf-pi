@@ -1,9 +1,9 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: newuser-pi
-Source: https://github.com/raspberrypi-ui/newuser-pi
+Upstream-Name: userconf-pi
+Source: https://github.com/raspberrypi-ui/userconf-pi
 
 Files: *
-Copyright: 2021 Raspberry Pi Foundation
+Copyright: 2021 Raspberry Pi Ltd.
 License: BSD-3-Clause
 
 License: BSD-3-Clause

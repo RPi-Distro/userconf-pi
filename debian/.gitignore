@@ -1,0 +1,7 @@
+.debhelper/
+debhelper-build-stamp
+files
+userconf-pi.debhelper.log
+userconf-pi.postrm.debhelper
+userconf-pi.substvars
+userconf-pi/

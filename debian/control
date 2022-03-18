@@ -1,15 +1,15 @@
-Source: newuser-pi
+Source: userconf-pi
 Section: utils
 Priority: optional
-Maintainer: Simon Long <simon@raspberrypi.com>
-Build-Depends: debhelper (>= 8.0.0)
+Maintainer: Serge Schneider <serge@raspberrypi.com>
+Build-Depends: debhelper-compat (= 11)
 Standards-Version: 4.3.0
-Vcs-Git: git://git@github.com:raspberrypi-ui/newuser-pi.git
-Vcs-Browser: https://github.com/raspberrypi-ui/newuser-pi
+Vcs-Git: git://git@github.com:raspberrypi-ui/userconf-pi.git
+Vcs-Browser: https://github.com/raspberrypi-ui/userconf-pi
 
-Package: newuser-pi
+Package: userconf-pi
 Architecture: all
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, raspi-config
 Recommends:
-Description: Raspberry Pi new user script
- A simple script to set up a new user account on Raspberry Pi
+Description: Raspberry Pi tool to rename a user
+ A tool to rename a user account on Raspberry Pi

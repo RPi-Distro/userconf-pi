@@ -1,0 +1,70 @@
+#!/bin/bash
+
+ask_reboot () {
+    echo "The wizard will be launched on reboot to rename the user."
+    read -n1 -p "Would you like to reboot now? [Y/n] " response
+    echo
+    case "$response" in 
+       [yY]) return 0;;
+       ?) return 1;;
+    esac
+}
+
+if [ "$(id -u)" != "0" ]; then
+    echo "Please run with 'sudo': sudo rename-user" >&2
+    exit 1
+fi
+
+USER=${SUDO_USER:-$(who -m | awk '{ print $1 }')}
+ADDITIONAL=" --useronly $USER"
+RESTART=""
+
+while getopts 'frs' c; do
+    case $c in
+        f) ADDITIONAL="" ;;
+        r) RESTART=True ;;
+        s) RESTART=False ;;
+    esac
+done
+
+echo "Preparing to run wizard - please wait..."
+
+if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
+    WIZ_USER=rpi-first-boot-wizard
+    FIRSTUSER="$(getent passwd 1000 | cut -d: -f1)"
+    while [ "$USER" = "root" ] || ! getent passwd "$USER" >/dev/null; do
+        if ! USER=$(whiptail --inputbox "rename-user could not determine the default user.\\n\\nWhat user should these settings apply to?" 20 60 "$FIRSTUSER" 3>&1 1>&2 2>&3); then
+            echo "rename-user could not determine which user to rename" >&2
+            exit 1
+        fi
+    done
+
+    # create the first boot user
+    if ! getent passwd "$WIZ_USER" >/dev/null; then
+        adduser "$WIZ_USER" --gecos ',,,,' --add_extra_groups --quiet --disabled-password > /dev/null
+        adduser "$WIZ_USER" netdev --quiet > /dev/null
+    fi
+    echo "$WIZ_USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/010_wiz-nopasswd
+
+    # create the wizard autostart...
+    cat <<- EOF > /etc/xdg/autostart/piwiz.desktop
+	[Desktop Entry]
+	Type=Application
+	Name=Raspberry Pi First-Run Wizard
+	Exec=sh -c 'gsettings set org.gnome.mutter center-new-windows true; sudo -AE piwiz$ADDITIONAL'
+	StartupNotify=true
+	EOF
+
+    SUDO_USER="$WIZ_USER" raspi-config nonint do_boot_behaviour B4
+fi
+
+systemctl --quiet disable getty@tty1
+systemctl --quiet enable userconfig
+
+sync
+
+if [ "$RESTART" = "True" ] || [ "$RESTART" != "False" ] && ask_reboot; then
+    reboot
+else
+    echo "Reboot to rename user or run 'sudo cancel-rename USER' to cancel."
+fi

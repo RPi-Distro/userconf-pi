@@ -1,1 +1,4 @@
-mvuser /usr/bin
+userconf-service	usr/lib/userconf-pi/
+userconf		usr/lib/userconf-pi/
+rename-user		usr/bin/
+cancel-rename		usr/bin/
