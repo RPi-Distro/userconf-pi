@@ -6,6 +6,7 @@ Before=lightdm.service
 Type=oneshot
 ExecStart=/usr/lib/userconf-pi/userconf-service
 StandardInput=tty
+Restart=on-failure
 TTYPath=/dev/tty8
 TTYReset=yes
 TTYVHangup=yes
