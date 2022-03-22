@@ -83,11 +83,12 @@ if [ "$INTERACTIVE" = "True" ]; then
     done
     while true; do
         NEW_PASS="$(whiptail --passwordbox "Please set a password for $NEW_USER:" 20 60 3>&1 1>&2 2>&3)"
-        if MSG=$(validate_password); then
+        if [ "$(whiptail --passwordbox "Please confirm the password:" 20 60 3>&1 1>&2 2>&3)" != "$NEW_PASS" ]; then
+            MSG="Passwords did not match"
+        elif MSG=$(validate_password); then
             break
-        else
-            whiptail --msgbox "$MSG" 20 60
         fi
+        whiptail --msgbox "$MSG" 20 60
     done
     /usr/lib/userconf-pi/userconf "$PREV_USER" "$NEW_USER" ""
     echo "$NEW_USER:$NEW_PASS" | chpasswd
