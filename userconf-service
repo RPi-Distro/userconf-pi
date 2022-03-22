@@ -7,12 +7,8 @@ validate_user() {
         MSG="$MSG\nLength be between 1 and 32 characters."
         RET=1
     fi
-    if echo "$NEW_USER" | grep -q '^[-+~]'; then
-        MSG="$MSG\nCannot start with a dash ('-'), plus ('+') or tilde ('~')."
-        RET=1
-    fi
-    if echo "$NEW_USER" | grep -q '[[:blank:],:/]'; then
-        MSG="$MSG\nCannot contain a colon (':'), comma (','), or whitespace."
+    if ! echo "$NEW_USER" | grep -q '^[a-z]\{1\}[a-z0-9\-]*$'; then
+        MSG="$MSG\nMust only contain lower-case letters, digits and hyphens, and must start with a letter."
         RET=1
     fi
     if [ "$RET" -ne 0 ]; then
