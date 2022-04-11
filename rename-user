@@ -58,6 +58,11 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
     SUDO_USER="$WIZ_USER" raspi-config nonint do_boot_behaviour B4
 fi
 
+cat <<- EOF > /etc/ssh/sshd_config.d/rename_user.conf
+	Banner /usr/share/userconf-pi/sshd_banner
+EOF
+systemctl --quiet reload sshd
+
 systemctl --quiet disable getty@tty1
 systemctl --quiet enable userconfig
 

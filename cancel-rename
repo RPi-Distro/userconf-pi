@@ -28,5 +28,8 @@ else
     SUDO_USER="$1" raspi-config nonint do_boot_behaviour B2
 fi
 
+rm -f /etc/ssh/sshd_config.d/rename_user.conf
+systemctl --quiet reload sshd
+
 systemctl --quiet disable userconfig
 systemctl --quiet enable getty@tty1 --now --no-block

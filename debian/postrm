@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+if [ "$1" = "remove" ]; then
+	rm -f /etc/ssh/sshd_config.d/rename_user.conf
+fi
+
+#DEBHELPER#

@@ -1,3 +1,9 @@
+userconf-pi (0.2) bullseye; urgency=medium
+
+  * Add sshd pre-login banner
+
+ -- Serge Schneider <serge@raspberrypi.com>  Mon, 11 Apr 2022 17:12:59 +0100
+
 userconf-pi (0.1) bullseye; urgency=medium
 
   * First version
