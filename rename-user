@@ -48,11 +48,11 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
 
     # create the wizard autostart...
     cat <<- EOF > /etc/xdg/autostart/piwiz.desktop
-	[Desktop Entry]
-	Type=Application
-	Name=Raspberry Pi First-Run Wizard
-	Exec=sh -c 'gsettings set org.gnome.mutter center-new-windows true; sudo -AE piwiz$ADDITIONAL'
-	StartupNotify=true
+		[Desktop Entry]
+		Type=Application
+		Name=Raspberry Pi First-Run Wizard
+		Exec=sh -c 'gsettings set org.gnome.mutter center-new-windows true; sudo -AE piwiz$ADDITIONAL'
+		StartupNotify=true
 	EOF
 
     SUDO_USER="$WIZ_USER" raspi-config nonint do_boot_behaviour B4
