@@ -29,6 +29,14 @@ done
 
 echo "Preparing to run wizard - please wait..."
 
+if [ "$(raspi-config nonint get_autologin)" -eq 0 ]; then
+    mkdir -p /var/lib/userconf-pi
+    touch /var/lib/userconf-pi/autologin
+elif [ -d /var/lib/userconf-pi ]; then
+    rm -f /var/lib/userconf-pi/autologin
+    rmdir --ignore-fail-on-non-empty /var/lib/userconf-pi
+fi
+
 if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
     WIZ_USER=rpi-first-boot-wizard
     FIRSTUSER="$(getent passwd 1000 | cut -d: -f1)"

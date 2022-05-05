@@ -2,6 +2,10 @@
 
 if [ "$1" = "remove" ]; then
 	rm -f /etc/ssh/sshd_config.d/rename_user.conf
+	if [ -d /var/lib/userconf-pi ]; then
+		rm -f /var/lib/userconf-pi/autologin
+		rmdir --ignore-fail-on-non-empty /var/lib/userconf-pi
+	fi
 fi
 
 #DEBHELPER#

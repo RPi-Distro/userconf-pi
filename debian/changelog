@@ -1,3 +1,9 @@
+userconf-pi (0.3) UNRELEASED; urgency=medium
+
+  * Restore previous autologin behaviour
+
+ -- Serge Schneider <serge@raspberrypi.com>  Thu, 05 May 2022 12:06:08 +0100
+
 userconf-pi (0.2) bullseye; urgency=medium
 
   * Add sshd pre-login banner
