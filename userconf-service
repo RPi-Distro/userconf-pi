@@ -39,25 +39,26 @@ for BOOT_CONF_FILE in /boot/userconf /boot/userconf.txt; do
     if MSG=$(validate_user && validate_password); then
         INTERACTIVE=False
     else
-        printf "$MSG" >> "$BOOT_CONF_FILE"
-        mv "$BOOT_CONF_FILE" "failed_$BOOT_CONF_FILE"
+        echo "$MSG" | tee -a "$BOOT_CONF_FILE" >&2
+        mv "$BOOT_CONF_FILE" "/boot/failed_$(basename "$BOOT_CONF_FILE")"
         sync
-        if [ "$INTERACTIVE" = "True" ]; then
-            whiptail --msgbox "Error in $BOOT_CONF_FILE:\n$MSG" 20 60
-        else
-            echo "$MSG" >&2
-            exit 1
-        fi
     fi
     break
 done
 
 if [ "$INTERACTIVE" = "True" ]; then
     VT="$(tty | sed 's|/dev/tty||')"
-    ORIG_VT="$(fgconsole)"
+    ORIG_VT="1"
     if [ -t 0 ]; then
         chvt "$VT"
     fi
+    for FAILED_BOOT_CONF_FILE in /boot/failed_userconf /boot/failed_userconf.txt; do
+        if [ -f "$FAILED_BOOT_CONF_FILE" ]; then
+            MSG="$(tail -n+2 "$FAILED_BOOT_CONF_FILE")"
+            whiptail --msgbox "$FAILED_BOOT_CONF_FILE detected:\n$MSG" 20 60
+            break
+        fi
+    done
     FIRST_USER="$(getent passwd 1000 | cut -d: -f1)"
     dpkg-reconfigure -p critical keyboard-configuration
     setupcon -k
@@ -98,3 +99,5 @@ elif [ -n "$NEW_USER" ] && [ -n "$NEW_PASS" ]; then
     /usr/lib/userconf-pi/userconf "$NEW_USER" "$NEW_PASS"
     rm "$BOOT_CONF_FILE"
 fi
+
+rm -f /boot/failed_userconf /boot/failed_userconf.txt
