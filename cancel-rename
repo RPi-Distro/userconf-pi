@@ -37,7 +37,9 @@ fi
 
 rm -f /var/lib/userconf-pi/autologin
 rm -f /etc/ssh/sshd_config.d/rename_user.conf
-systemctl --quiet reload sshd
+if systemctl --quiet is-active ssh; then
+	systemctl --quiet reload ssh
+fi
 
 systemctl --quiet disable userconfig
 systemctl --quiet enable getty@tty1 --now --no-block

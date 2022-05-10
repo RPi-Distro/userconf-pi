@@ -2,6 +2,7 @@ userconf-pi (0.3) bullseye; urgency=medium
 
   * Restore previous autologin behaviour
   * Fix headless error reporting
+  * Fix ssh service reload
 
  -- Serge Schneider <serge@raspberrypi.com>  Thu, 05 May 2022 12:06:08 +0100
 

@@ -4,7 +4,7 @@ ask_reboot () {
     echo "The wizard will be launched on reboot to rename the user."
     read -n1 -p "Would you like to reboot now? [Y/n] " response
     echo
-    case "$response" in 
+    case "$response" in
        [yY]) return 0;;
        ?) return 1;;
     esac
@@ -69,7 +69,9 @@ fi
 cat <<- EOF > /etc/ssh/sshd_config.d/rename_user.conf
 	Banner /usr/share/userconf-pi/sshd_banner
 EOF
-systemctl --quiet reload sshd
+if systemctl --quiet is-active ssh; then
+	systemctl --quiet reload ssh
+fi
 
 systemctl --quiet disable getty@tty1
 systemctl --quiet enable userconfig
