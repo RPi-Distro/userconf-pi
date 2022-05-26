@@ -34,8 +34,9 @@ for BOOT_CONF_FILE in /boot/userconf /boot/userconf.txt; do
     if [ ! -f "$BOOT_CONF_FILE" ]; then
         continue
     fi
-    NEW_USER="$(head -n1 "$BOOT_CONF_FILE" | cut -f1 -d:)"
-    NEW_PASS="$(head -n1 "$BOOT_CONF_FILE" | cut -f2 -d:)"
+    LINE="$(head -n1 "$BOOT_CONF_FILE" | dos2unix)"
+    NEW_USER="$(echo "$LINE" | cut -f1 -d:)"
+    NEW_PASS="$(echo "$LINE" | cut -f2 -d:)"
     if MSG=$(validate_user && validate_password); then
         INTERACTIVE=False
     else
