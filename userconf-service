@@ -11,7 +11,7 @@ validate_user() {
         MSG="$MSG\nMust only contain lower-case letters, digits and hyphens, and must start with a letter."
         RET=1
     fi
-    if echo "$NEW_USER" | grep -q '^root$'; then
+    if [ "$NEW_USER" = "root" ] ; then
         MSG="$MSG\nCannot be root."
         RET=1
     fi
