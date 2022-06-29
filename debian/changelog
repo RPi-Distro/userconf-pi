@@ -1,4 +1,4 @@
-userconf-pi (0.4) UNRELEASED; urgency=medium
+userconf-pi (0.4) bullseye; urgency=medium
 
   * Fix autologin behaviour on 2022-04-04 image
     - The image does not contain /var/lib/userconf-pi/autologin, but should
