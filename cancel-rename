@@ -10,7 +10,8 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
         echo "Please specify default user: sudo cancel-rename USER" >&2
         exit 1
     fi
-    if [ -f /var/lib/userconf-pi/autologin ]; then
+    IMG_VER="$(grep -s -m1 -o '[[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\}' /etc/rpi-issue)"
+    if [ -f /var/lib/userconf-pi/autologin ] || [ "$IMG_VER" == "2022-04-04" ]; then
         SUDO_USER="$1" raspi-config nonint do_boot_behaviour B4
     else
         SUDO_USER="$1" raspi-config nonint do_boot_behaviour B3

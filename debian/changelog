@@ -1,5 +1,8 @@
 userconf-pi (0.4) UNRELEASED; urgency=medium
 
+  * Fix autologin behaviour on 2022-04-04 image
+    - The image does not contain /var/lib/userconf-pi/autologin, but should
+      autologin from the desktop.
   * Remove unnecessary grep
 
  -- Serge Schneider <serge@raspberrypi.com>  Sat, 18 Jun 2022 21:23:55 +0100
