@@ -1,3 +1,10 @@
+userconf-pi (0.5) bullseye; urgency=medium
+
+  * Add WIZ_USER to video group
+    - Required for vcgencmd commands
+
+ -- Serge Schneider <serge@raspberrypi.com>  Wed, 17 Aug 2022 13:50:07 +0100
+
 userconf-pi (0.4) bullseye; urgency=medium
 
   * Fix autologin behaviour on 2022-04-04 image

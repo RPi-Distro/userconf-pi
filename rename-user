@@ -51,6 +51,7 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
     if ! getent passwd "$WIZ_USER" >/dev/null; then
         adduser "$WIZ_USER" --gecos ',,,,' --add_extra_groups --quiet --disabled-password --system --shell /bin/bash > /dev/null
         adduser "$WIZ_USER" netdev --quiet > /dev/null
+        adduser "$WIZ_USER" video --quiet > /dev/null
     fi
     echo "$WIZ_USER ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/010_wiz-nopasswd
 
