@@ -1,3 +1,11 @@
+userconf-pi (0.6) bookworm; urgency=medium
+
+  * Specify WIZ_USER home directory
+    - Newer versions of adduser assume /nonexistant for --system users,
+      which breaks the X session
+
+ -- Serge Schneider <serge@raspberrypi.com>  Mon, 13 Feb 2023 15:08:46 +0000
+
 userconf-pi (0.5) bullseye; urgency=medium
 
   * Add WIZ_USER to video group

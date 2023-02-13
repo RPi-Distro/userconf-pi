@@ -49,7 +49,7 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
 
     # create the first boot user
     if ! getent passwd "$WIZ_USER" >/dev/null; then
-        adduser "$WIZ_USER" --gecos ',,,,' --add_extra_groups --quiet --disabled-password --system --shell /bin/bash > /dev/null
+        adduser "$WIZ_USER" --gecos ',,,,' --home "/home/$WIZ_USER" --add_extra_groups --quiet --disabled-password --system --shell /bin/bash > /dev/null
         adduser "$WIZ_USER" netdev --quiet > /dev/null
         adduser "$WIZ_USER" video --quiet > /dev/null
     fi
