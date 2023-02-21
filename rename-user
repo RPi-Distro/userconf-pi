@@ -60,7 +60,7 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
 		[Desktop Entry]
 		Type=Application
 		Name=Raspberry Pi First-Run Wizard
-		Exec=sh -c 'gsettings set org.gnome.mutter center-new-windows true; sudo -AE piwiz$ADDITIONAL'
+		Exec=sudo -AE dbus-launch piwiz$ADDITIONAL
 		StartupNotify=true
 	EOF
 
