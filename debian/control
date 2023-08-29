@@ -9,7 +9,7 @@ Vcs-Browser: https://github.com/raspberrypi-ui/userconf-pi
 
 Package: userconf-pi
 Architecture: all
-Depends: ${misc:Depends}, raspi-config, dos2unix
+Depends: ${misc:Depends}, raspi-config, dos2unix, raspberrypi-sys-mods
 Recommends:
 Description: Raspberry Pi tool to rename a user
  A tool to rename a user account on Raspberry Pi
