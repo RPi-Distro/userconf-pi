@@ -1,3 +1,9 @@
+userconf-pi (0.9) bookworm; urgency=medium
+
+  * Use get_fw_loc to determine userconf location
+
+ -- Serge Schneider <serge@raspberrypi.com>  Tue, 29 Aug 2023 19:14:31 +0100
+
 userconf-pi (0.8) bookworm; urgency=medium
 
   * Remove sudo from piwiz autostart file
