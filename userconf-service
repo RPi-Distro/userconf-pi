@@ -7,8 +7,8 @@ fi
 validate_user() {
     RET=0
     MSG="Entered username is invalid:"
-    if [ -z "$NEW_USER" ] || [ ${#NEW_USER} -gt 32 ]; then
-        MSG="$MSG\nLength be between 1 and 32 characters."
+    if [ -z "$NEW_USER" ] || [ ${#NEW_USER} -ge 30 ]; then
+        MSG="$MSG\nLength be between 1 and 30 characters."
         RET=1
     fi
     if ! echo "$NEW_USER" | grep -q '^[a-z]\{1\}[a-z0-9\-]*$'; then
