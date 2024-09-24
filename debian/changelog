@@ -1,3 +1,9 @@
+userconf-pi (0.10) bookworm; urgency=medium
+
+  * Add WIZ_USER to input group
+
+ -- Serge Schneider <serge@raspberrypi.com>  Tue, 24 Sep 2024 13:37:36 +0100
+
 userconf-pi (0.9) bookworm; urgency=medium
 
   * Use get_fw_loc to determine userconf location
