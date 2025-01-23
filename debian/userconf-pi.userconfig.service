@@ -1,6 +1,6 @@
 [Unit]
 Description=User configuration dialog
-After=systemd-user-sessions.service
+After=systemd-user-sessions.service cloud-config.target
 Before=lightdm.service
 [Service]
 Type=oneshot

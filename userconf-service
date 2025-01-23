@@ -32,6 +32,25 @@ validate_password() {
     fi
 }
 
+# Check if cloud-init is installed, done and the default user has a password set
+# indicating that it is wanted to keep the default user as configured by cloud-init
+# no password set means that the user has probably been created by the distro cloud-init cfg
+if command -v cloud-init > /dev/null 2>&1; then
+    if systemctl is-active --quiet cloud-config.service; then
+        # Get the default user (UID 1000)
+        DEFAULT_USER="$(getent passwd 1000 | cut -d: -f1)"
+        if [ -n "$DEFAULT_USER" ] && [ "$DEFAULT_USER" != "pi" ]; then
+            # Check if the default user has a password set
+            PASSWORD_STATUS="$(passwd -S "$DEFAULT_USER" | awk '{print $2}')"
+            if [ "$PASSWORD_STATUS" = "P" ]; then
+                # call cancel-rename to stop the userconf subsystem and exit the script
+                /usr/bin/cancel-rename "$DEFAULT_USER"
+                exit 0
+            fi
+        fi
+    fi
+fi
+
 if [ "$(raspi-config nonint get_boot_cli)" -eq 0 ]; then
     INTERACTIVE=True
 else
