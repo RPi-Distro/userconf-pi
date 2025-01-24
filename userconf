@@ -7,7 +7,10 @@ rename_user () {
     for file in /etc/subuid /etc/subgid; do
         sed -i "s/^$FIRSTUSER:/$NEWNAME:/" "$file"
     done
-    if [ -f /etc/sudoers.d/010_pi-nopasswd ]; then
+    
+    if [ -f /etc/sudoers.d/90-cloud-init-users ]; then
+        sed -i "s/^$FIRSTUSER /$NEWNAME /" /etc/sudoers.d/90-cloud-init-users
+    elif [ -f /etc/sudoers.d/010_pi-nopasswd ]; then
         sed -i "s/^$FIRSTUSER /$NEWNAME /" /etc/sudoers.d/010_pi-nopasswd
     fi
 }
