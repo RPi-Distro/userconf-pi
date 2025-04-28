@@ -1,3 +1,9 @@
+userconf-pi (0.11) bookworm; urgency=medium
+
+  * Add serial to browser marketing pages
+
+ -- Serge Schneider <serge@raspberrypi.com>  Mon, 28 Apr 2025 13:43:59 +0100
+
 userconf-pi (0.10) bookworm; urgency=medium
 
   * Add WIZ_USER to input group
