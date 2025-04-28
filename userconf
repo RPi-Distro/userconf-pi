@@ -32,4 +32,14 @@ if [ -n "$NEWPASS" ]; then
     echo "$NEWNAME:$NEWPASS" | chpasswd -e
 fi
 
+if [ -x /usr/bin/raspi-config ] && raspi-config nonint is_pi; then
+    HASH=$(grep Serial /proc/cpuinfo | sha256sum | cut -f1 -d' ')
+    for file in /etc/chromium/master_preferences /usr/share/firefox/distribution/distribution.ini; do
+        if [ ! -f "$file" ]; then
+            continue
+        fi
+        sed -i "s/UNIDENTIFIED/$HASH/g" "$file"
+    done
+fi
+
 /usr/bin/cancel-rename "$NEWNAME"
