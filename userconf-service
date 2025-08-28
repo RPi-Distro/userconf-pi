@@ -39,7 +39,7 @@ if command -v cloud-init > /dev/null 2>&1; then
     if systemctl is-active --quiet cloud-config.service; then
         # Get the default user (UID 1000)
         DEFAULT_USER="$(getent passwd 1000 | cut -d: -f1)"
-        if [ -n "$DEFAULT_USER" ] && [ "$DEFAULT_USER" != "pi" ]; then
+        if [ -n "$DEFAULT_USER" ]; then
             # Check if the default user has a password set
             PASSWORD_STATUS="$(passwd -S "$DEFAULT_USER" | awk '{print $2}')"
             if [ "$PASSWORD_STATUS" = "P" ]; then
