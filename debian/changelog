@@ -1,3 +1,11 @@
+userconf-pi (0.14) trixie; urgency=medium
+
+  * d/c: Fix Vcs-Git
+  * Retry rpi-first-boot-wizard user deletion
+  * d/: Add gbp.conf
+
+ -- Serge Schneider <serge@raspberrypi.com>  Wed, 10 Sep 2025 16:06:16 +0100
+
 userconf-pi (0.13) trixie; urgency=medium
 
   [ Paul ]
