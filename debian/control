@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Serge Schneider <serge@raspberrypi.com>
 Build-Depends: debhelper-compat (= 11)
 Standards-Version: 4.3.0
-Vcs-Git: git://git@github.com:raspberrypi-ui/userconf-pi.git
+Vcs-Git: https://github.com/RPi-Distro/userconf-pi.git
 Vcs-Browser: https://github.com/raspberrypi-ui/userconf-pi
 
 Package: userconf-pi
