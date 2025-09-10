@@ -28,7 +28,7 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
 	Type=Application
 	Name=Delete Wizard User
 	NoDisplay=true
-	Exec=sudo sh -c 'userdel -r rpi-first-boot-wizard; rm -f /etc/sudoers.d/010_wiz-nopasswd /etc/xdg/autostart/deluser.desktop'
+	Exec=sudo sh -c 'rm -f /etc/sudoers.d/010_wiz-nopasswd; retry -t 6 userdel -r rpi-first-boot-wizard && rm -f /etc/xdg/autostart/deluser.desktop'
 	EOF
 else
     if [ -f /var/lib/userconf-pi/autologin ]; then
