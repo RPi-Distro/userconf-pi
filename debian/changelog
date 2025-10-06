@@ -1,3 +1,10 @@
+userconf-pi (0.15) trixie; urgency=medium
+
+  [ paulober ]
+  * Change service to start after cloud-config.service
+
+ -- Serge Schneider <serge@raspberrypi.com>  Mon, 06 Oct 2025 14:32:12 +0100
+
 userconf-pi (0.14) trixie; urgency=medium
 
   * d/c: Fix Vcs-Git
