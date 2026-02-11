@@ -1,3 +1,9 @@
+userconf-pi (0.16) trixie; urgency=medium
+
+  * Use a systemd service to delete the first run wizard user
+
+ -- Serge Schneider <serge@raspberrypi.com>  Wed, 11 Feb 2026 11:27:56 +0000
+
 userconf-pi (0.15) trixie; urgency=medium
 
   [ paulober ]
