@@ -22,14 +22,30 @@ if [ "$(raspi-config nonint get_boot_cli)" -ne 0 ]; then
     # remove the autostart for the wizard
     rm -f /etc/xdg/autostart/piwiz.desktop
 
-    # set up a self-deleting autostart to delete the wizard user
-    cat <<- EOF > /etc/xdg/autostart/deluser.desktop
-	[Desktop Entry]
-	Type=Application
-	Name=Delete Wizard User
-	NoDisplay=true
-	Exec=sudo sh -c 'rm -f /etc/sudoers.d/010_wiz-nopasswd; retry -t 6 userdel -r rpi-first-boot-wizard && rm -f /etc/xdg/autostart/deluser.desktop'
+    # set up a self-deleting service to delete the wizard user
+    cat <<- 'EOF' > /etc/systemd/system/del-wizard.service
+	[Unit]
+	Description=Delete rpi-first-boot-wizard user
+	After=multi-user.target
+	StartLimitIntervalSec=0
+
+	[Service]
+	Type=oneshot
+	RemainAfterExit=no
+	ExecStartPre=/usr/bin/sleep 30
+	ExecStart=/usr/sbin/userdel -r rpi-first-boot-wizard
+	ExecStartPost=/usr/bin/rm -f /etc/sudoers.d/010_wiz-nopasswd
+	ExecStartPost=/usr/bin/systemctl disable del-wizard.service
+	ExecStartPost=/usr/bin/rm -f /etc/systemd/system/del-wizard.service
+	ExecStartPost=/usr/bin/systemctl daemon-reload
+	SuccessExitStatus=6
+	Restart=on-failure
+	RestartSec=30
+
+	[Install]
+	WantedBy=multi-user.target
 	EOF
+    systemctl enable --now --no-block del-wizard.service
 else
     if [ -f /var/lib/userconf-pi/autologin ]; then
         SUDO_USER="$1" raspi-config nonint do_boot_behaviour B2
