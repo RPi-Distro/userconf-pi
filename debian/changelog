@@ -1,3 +1,9 @@
+userconf-pi (0.17) trixie; urgency=medium
+
+  * First user now ships with a nologin shell. Set to bash after rename.
+
+ -- Serge Schneider <serge@raspberrypi.com>  Mon, 16 Feb 2026 17:00:21 +0000
+
 userconf-pi (0.16) trixie; urgency=medium
 
   * Use a systemd service to delete the first run wizard user
