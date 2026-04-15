@@ -1,3 +1,9 @@
+userconf-pi (0.18) trixie; urgency=medium
+
+  * Always update user's shell on rename
+
+ -- Serge Schneider <serge@raspberrypi.com>  Wed, 15 Apr 2026 20:04:34 +0100
+
 userconf-pi (0.17) trixie; urgency=medium
 
   * First user now ships with a nologin shell. Set to bash after rename.
