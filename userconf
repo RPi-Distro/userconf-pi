@@ -3,7 +3,6 @@
 rename_user () {
     usermod -l "$NEWNAME" "$FIRSTUSER"
     usermod -m -d "/home/$NEWNAME" "$NEWNAME"
-    usermod -s /bin/bash "$NEWNAME"
     groupmod -n "$NEWNAME" "$FIRSTGROUP"
     for file in /etc/subuid /etc/subgid; do
         sed -i "s/^$FIRSTUSER:/$NEWNAME:/" "$file"
@@ -28,6 +27,7 @@ NEWPASS=$2
 if [ "$FIRSTUSER" != "$NEWNAME" ]; then
     rename_user
 fi
+usermod -s /bin/bash "$NEWNAME"
 
 if [ -n "$NEWPASS" ]; then
     echo "$NEWNAME:$NEWPASS" | chpasswd -e
