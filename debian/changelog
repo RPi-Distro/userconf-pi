@@ -1,3 +1,9 @@
+userconf-pi (0.19) trixie; urgency=medium
+
+  * cancel-rename: remove empty /var/lib/userconf-pi state dir
+
+ -- Serge Schneider <serge@raspberrypi.com>  Mon, 27 Jul 2026 01:19:51 +0100
+
 userconf-pi (0.18) trixie; urgency=medium
 
   * Always update user's shell on rename
