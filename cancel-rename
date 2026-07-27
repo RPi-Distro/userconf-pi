@@ -54,7 +54,10 @@ else
     fi
 fi
 
-rm -f /var/lib/userconf-pi/autologin
+if [ -d /var/lib/userconf-pi ]; then
+    rm -f /var/lib/userconf-pi/autologin
+    rmdir --ignore-fail-on-non-empty /var/lib/userconf-pi
+fi
 rm -f /etc/ssh/sshd_config.d/rename_user.conf
 
 systemctl --quiet disable userconfig
